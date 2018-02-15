@@ -35,11 +35,11 @@ or:
 # Using SmileNN
 Using SmileNN is very simple because there are only two options. You can either use a webcam or a video file.
 
-To use a video file, run the following in the terminal.
+To use a video file, run the following in the terminal:
 ```
 ./SmileNN -f [path_to_video_file]
 ```
-To use a webcam.
+To use a webcam:
 ```
 1. cd \dev
 2. find ttyVideo#
