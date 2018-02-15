@@ -39,6 +39,7 @@ To use a video file, run the following in the terminal:
 ```
 ./SmileNN -f [path_to_video_file]
 ```
+Note: The file has to be .avi format
 To use a webcam:
 ```
 1. cd \dev
