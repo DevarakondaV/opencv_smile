@@ -4,7 +4,7 @@ This repository contains a neural network that has been trained to recognize smi
 # Dependencies
 Requires OpenCV 3.3.0
 
-# Instruction on building files for Linux.
+# Instruction on building files for Linux
 
 First find a location on your computer for the repository. Then
 ```
