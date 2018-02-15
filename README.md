@@ -2,7 +2,7 @@
 This repository contains a neural network that has been trained to recognize smiles. You can test it out yourself with either a webcam or a video file!
 
 # Dependencies
-Requires OpenCV
+Requires OpenCV 3.3.0
 
 # Instruction on building files for Linux.
 
