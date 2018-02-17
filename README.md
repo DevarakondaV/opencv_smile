@@ -55,8 +55,7 @@ select the part of the frame with the face, preprocess the image, and pass the d
 
 # Limitations
 There are some limitation to how well this implementation will work.
-1. The accuracy of the neural network which predicts if a person is smiling or not is around 77.9%. This does not accounting for the pre-built cascade classifier which detects the faces. This accuracy is quite low
-primary because of the model. Fully connected networks are not the best models for image classifcation. Furthermore, the size of the data set
+1. The accuracy of the neural network which predicts if a person is smiling or not is around 77.9%. This does not account for the pre-built cascade classifier which detects the faces. This accuracy is quite low primary because of the model used to make predictions. Fully connected networks are not the best models for image classifcation. Furthermore, the size of the data set
 used to train the model was quite small at approximately 2000 images.
 2. It will not work correctly for faces that are upside down, in poor lighting conditions and faces that deviate to far from vertical. 
 3. The resolution of the video will determine classification speed.
