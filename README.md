@@ -48,6 +48,10 @@ To use a webcam:
 4. cd to executable SmileNN
 5. ./SmileNN -w #
 ```
+You can save the prediction on the video file using the following option tag.
+```
+./SmileNN -s
+```
 
 # How does it work?
 This implementation uses the viola jones method to find faces in each frame of an input stream. If a face is detected, it will then
