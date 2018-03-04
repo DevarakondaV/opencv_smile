@@ -20,7 +20,7 @@ using namespace cv;
 
 
 //Function Declerations
-void detectAndDisplay(Mat frame);
+Mat detectAndDisplay(Mat frame);
 double Area(int w,int h);
 int checksmile(Mat frame);
 void print_inst();
@@ -34,15 +34,23 @@ int main(int argc,char** argv)
 {
 	int opt;
 	VideoCapture cap;
-	while((opt = getopt(argc,argv,"w:f:h")) != -1)
+	VideoWriter v_writer;
+	bool capture_vid = false;
+	string file_name;
+	while((opt = getopt(argc,argv,"w:f:s::h")) != -1)
 	{	
 		switch(opt)
 		{
 			case 'w':
+				file_name = "webcam";
 				cap = VideoCapture(atoi(optarg));
 				break;
 			case 'f':
-				cap = VideoCapture(optarg);
+				file_name = optarg;
+				cap = VideoCapture(file_name);
+				break;
+			case 's':
+				capture_vid = true; 
 				break;
 			case '?':
 			case 'h':
@@ -61,13 +69,28 @@ int main(int argc,char** argv)
 
 	if (cap.isOpened()) //check that webcam/video file was opened properly
 	{
-		
+		if (capture_vid == true) {
+			int frame_width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+			int frame_height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+			double fps = cap.get(CV_CAP_PROP_FPS);
+			string output_file = file_name;
+			int start_idx = output_file.find(".avi");
+			if (start_idx != -1) {
+				output_file.erase(start_idx,4);
+			}
+			output_file = output_file+"_copy.avi";
+			v_writer = VideoWriter(output_file,CV_FOURCC('M','J','P','G'),fps,Size(frame_width,frame_height));
+		}
 		while(true)
 		{
 			cap.read(frame); //Read captured data into frame
 			if (!frame.empty())
 			{
-				detectAndDisplay(frame); }
+				Mat guess_frame = detectAndDisplay(frame);
+				if (capture_vid == true) {
+					v_writer.write(guess_frame);
+				}
+		       	}
 			else
 			{
 				printf("---(!) No captured frame/End of Video --Break!\n"); break;
@@ -80,7 +103,7 @@ int main(int argc,char** argv)
 }
 
 //Detects if there is a face in frame and predicts for smile.
-void detectAndDisplay(Mat frame)
+Mat detectAndDisplay(Mat frame)
 {
 	
 	std::vector<Rect> faces;
@@ -113,6 +136,7 @@ void detectAndDisplay(Mat frame)
 		rectangle(frame,Point (x,y),Point(w,h),col,2,8,0); //Adding boundary box.
 	}
 	imshow("window", frame);
+	return frame;
 }
 
 double Area(int w,int h){
@@ -139,5 +163,7 @@ void print_inst()
 	cout << "SmileNN Help\n";
 	cout << "-w \t Run with webcam. Requires devpath number. Example input: ./SmileNN -f [0]\n";
 	cout << "-f \t Run with file. Requires filename. Example input: ./SmileNN -f [Filepath]\n";
+	cout << "-s \t Save video file with prediction\n";
 	cout << "-h \t help\n";
 }
+
